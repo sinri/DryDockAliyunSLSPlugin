@@ -3,6 +3,7 @@ package io.github.sinri.drydock.plugin.aliyun.sls.kit.entity;
 import com.google.protobuf.DynamicMessage;
 import io.github.sinri.drydock.plugin.aliyun.sls.kit.protocol.ProtocolBufferUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,13 +14,13 @@ import java.util.List;
  *         >LogItem 实体格式定义</a>
  */
 public class LogItem {
-    private int time;
-    private List<LogContent> contents;
-    private Integer nanoPartOfTime=null;
+    private final int time;
+    private final List<LogContent> contents;
+    private Integer nanoPartOfTime = null;
 
-    public LogItem(int time, List<LogContent> contents) {
+    public LogItem(int time) {
         this.time = time;
-        this.contents = contents;
+        this.contents = new ArrayList<>();
     }
 
     public int getTime() {
@@ -30,8 +31,13 @@ public class LogItem {
         return contents;
     }
 
-    public LogItem setNanoPartOfTime(Integer nanoPartOfTime) {
-        this.nanoPartOfTime = nanoPartOfTime;
+    public LogItem addContent(LogContent content) {
+        contents.add(content);
+        return this;
+    }
+
+    public LogItem addContent(String key, String value) {
+        contents.add(new LogContent(key, value));
         return this;
     }
 
@@ -39,8 +45,13 @@ public class LogItem {
         return nanoPartOfTime;
     }
 
+    public LogItem setNanoPartOfTime(Integer nanoPartOfTime) {
+        this.nanoPartOfTime = nanoPartOfTime;
+        return this;
+    }
+
     public DynamicMessage toProtobuf() {
-        var logDescriptor= ProtocolBufferUtils.getInstance().getLogDescriptor();
+        var logDescriptor = ProtocolBufferUtils.getInstance().getLogDescriptor();
         DynamicMessage.Builder builder = DynamicMessage.newBuilder(logDescriptor)
                                                        .setField(logDescriptor.findFieldByName("Time"), time);
         contents.forEach(content -> {

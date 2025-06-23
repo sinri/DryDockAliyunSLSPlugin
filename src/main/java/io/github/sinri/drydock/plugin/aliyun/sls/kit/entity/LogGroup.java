@@ -93,6 +93,11 @@ public class LogGroup {
         return this;
     }
 
+    public LogGroup addLogItem(LogItem logItem) {
+        this.logItems.add(logItem);
+        return this;
+    }
+
     public DynamicMessage toProtobuf() {
         var logGroupDescriptor = ProtocolBufferUtils.getInstance().getLogGroupDescriptor();
         var builder = DynamicMessage.newBuilder(logGroupDescriptor);

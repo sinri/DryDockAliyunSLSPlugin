@@ -13,7 +13,7 @@ import java.util.List;
 
 import static io.github.sinri.keel.facade.KeelInstance.Keel;
 
-public class Test1 extends KeelUnitTest {
+public class AliyunSLSLogPutterTest extends KeelUnitTest {
     @Test
     public void test1() {
         KeelConfigElement configElement = Keel.getConfiguration().extract("aliyun", "sls");
@@ -37,11 +37,9 @@ public class Test1 extends KeelUnitTest {
                                 ))
                                 .addLogItems(List.of(
                                         new LogItem(
-                                                Math.toIntExact(System.currentTimeMillis() / 1000),
-                                                List.of(
-                                                        new LogContent("text", "God Bless!")
-                                                )
+                                                Math.toIntExact(System.currentTimeMillis() / 1000)
                                         )
+                                                .addContent(new LogContent("text", "God Bless!"))
                                 ))
                 );
             });
