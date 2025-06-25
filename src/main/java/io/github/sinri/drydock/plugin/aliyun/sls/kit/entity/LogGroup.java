@@ -1,7 +1,7 @@
 package io.github.sinri.drydock.plugin.aliyun.sls.kit.entity;
 
 import com.google.protobuf.DynamicMessage;
-import io.github.sinri.drydock.plugin.aliyun.sls.kit.protocol.ProtocolBufferUtils;
+import io.github.sinri.drydock.plugin.aliyun.sls.kit.protocol.LogEntityDescriptors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +99,7 @@ public class LogGroup {
     }
 
     public DynamicMessage toProtobuf() {
-        var logGroupDescriptor = ProtocolBufferUtils.getInstance().getLogGroupDescriptor();
+        var logGroupDescriptor = LogEntityDescriptors.getInstance().getLogGroupDescriptor();
         var builder = DynamicMessage.newBuilder(logGroupDescriptor);
         if (topic != null) {
             builder.setField(logGroupDescriptor.findFieldByName("Topic"), topic);
@@ -107,12 +107,8 @@ public class LogGroup {
         if (source != null) {
             builder.setField(logGroupDescriptor.findFieldByName("Source"), source);
         }
-        logItems.forEach(logItem -> {
-            builder.addRepeatedField(logGroupDescriptor.findFieldByName("Logs"), logItem.toProtobuf());
-        });
-        logTags.forEach(logTag -> {
-            builder.addRepeatedField(logGroupDescriptor.findFieldByName("LogTags"), logTag.toProtobuf());
-        });
+        logItems.forEach(logItem -> builder.addRepeatedField(logGroupDescriptor.findFieldByName("Logs"), logItem.toProtobuf()));
+        logTags.forEach(logTag -> builder.addRepeatedField(logGroupDescriptor.findFieldByName("LogTags"), logTag.toProtobuf()));
         return builder.build();
     }
 }

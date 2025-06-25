@@ -80,6 +80,7 @@ class AliyunSLSLogPutter {
         headers.put("x-log-signaturemethod", "hmac-sha1");
         headers.put("x-log-compresstype", "lz4");
         headers.put("Host", project + "." + endpoint);
+
         // Convert LogGroup to protobuf format
         Buffer raw = serializeLogGroup(logGroup);
         headers.put("x-log-bodyrawsize", String.valueOf(raw.length()));
@@ -163,9 +164,7 @@ class AliyunSLSLogPutter {
                                           .filter(headerName -> headerName.startsWith("x-log-") || headerName.startsWith("x-acs-"))
                                           .sorted().map(x -> x + ":" + headers.get(x))
                                           .toList();
-        headerLines.forEach(x -> {
-            sb.append(x).append("\n");
-        });
+        headerLines.forEach(x -> sb.append(x).append("\n"));
 
         sb.append(uri);
         if (queries != null && !queries.isBlank()) {

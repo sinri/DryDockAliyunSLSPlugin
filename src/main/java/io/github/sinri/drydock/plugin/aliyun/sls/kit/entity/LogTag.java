@@ -1,7 +1,7 @@
 package io.github.sinri.drydock.plugin.aliyun.sls.kit.entity;
 
 import com.google.protobuf.DynamicMessage;
-import io.github.sinri.drydock.plugin.aliyun.sls.kit.protocol.ProtocolBufferUtils;
+import io.github.sinri.drydock.plugin.aliyun.sls.kit.protocol.LogEntityDescriptors;
 
 /**
  * @see <a
@@ -69,7 +69,7 @@ public class LogTag {
     }
 
     public DynamicMessage toProtobuf() {
-        var logTagDescriptor = ProtocolBufferUtils.getInstance().getLogTagDescriptor();
+        var logTagDescriptor = LogEntityDescriptors.getInstance().getLogTagDescriptor();
         return DynamicMessage.newBuilder(logTagDescriptor)
                              .setField(logTagDescriptor.findFieldByName("Key"), key)
                              .setField(logTagDescriptor.findFieldByName("Value"), value)

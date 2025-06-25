@@ -12,14 +12,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static io.github.sinri.keel.facade.KeelInstance.Keel;
 
 public class AliyunSLSMetricRecorder extends KeelMetricRecorder {
     private final String source;
     private final AliyunSlsConfigElement aliyunSlsConfig;
-    private final AtomicBoolean stopRef = new AtomicBoolean(false);
     private final AliyunSLSLogPutter logPutter;
 
     public AliyunSLSMetricRecorder() {
@@ -54,12 +52,10 @@ public class AliyunSLSMetricRecorder extends KeelMetricRecorder {
         if (buffer.isEmpty()) return Future.succeededFuture();
 
         if (aliyunSlsConfig.isDisabled()) {
-            buffer.forEach(item -> {
-                Keel.getLogger().debug(log -> {
-                    log.classification("TOPIC:" + topic);
-                    log.context(item.toJsonObject());
-                });
-            });
+            buffer.forEach(item -> Keel.getLogger().debug(log -> {
+                log.classification("TOPIC:" + topic);
+                log.context(item.toJsonObject());
+            }));
             return Future.succeededFuture();
         }
 
@@ -97,7 +93,7 @@ public class AliyunSLSMetricRecorder extends KeelMetricRecorder {
 
         // 按照字典序对labels排序, 如果您的labels已排序, 请忽略此步骤。
         metricRecord.label("source", this.source);
-        TreeMap<String, String> sortedLabels = new TreeMap<String, String>(metricRecord.labels());
+        TreeMap<String, String> sortedLabels = new TreeMap<>(metricRecord.labels());
         StringBuilder labelsBuilder = new StringBuilder();
 
         boolean hasPrev = false;

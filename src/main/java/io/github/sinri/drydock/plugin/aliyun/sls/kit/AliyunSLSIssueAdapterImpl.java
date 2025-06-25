@@ -81,7 +81,7 @@ public class AliyunSLSIssueAdapterImpl extends AliyunSLSIssueAdapter {
             logGroup.addLogItem(logItem);
         });
 
-        System.out.println("!");
+        // System.out.println("!");
         return this.logPutter.putLogs(aliyunSlsConfig.getProject(), aliyunSlsConfig.getLogstore(), logGroup);
     }
 
