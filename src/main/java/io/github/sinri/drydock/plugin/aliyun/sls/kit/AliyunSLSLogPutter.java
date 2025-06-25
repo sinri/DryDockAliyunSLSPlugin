@@ -16,9 +16,13 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static io.github.sinri.keel.facade.KeelInstance.Keel;
 
+/**
+ * @since 1.0
+ */
 class AliyunSLSLogPutter {
     @Nonnull
     private final String accessKeyId;
@@ -163,7 +167,7 @@ class AliyunSLSLogPutter {
         List<String> headerLines = headers.keySet().stream()
                                           .filter(headerName -> headerName.startsWith("x-log-") || headerName.startsWith("x-acs-"))
                                           .sorted().map(x -> x + ":" + headers.get(x))
-                                          .toList();
+                                          .collect(Collectors.toList());
         headerLines.forEach(x -> sb.append(x).append("\n"));
 
         sb.append(uri);

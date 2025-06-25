@@ -15,6 +15,9 @@ import java.util.TreeMap;
 
 import static io.github.sinri.keel.facade.KeelInstance.Keel;
 
+/**
+ * @since 1.0
+ */
 public class AliyunSLSMetricRecorder extends KeelMetricRecorder {
     private final String source;
     private final AliyunSlsConfigElement aliyunSlsConfig;

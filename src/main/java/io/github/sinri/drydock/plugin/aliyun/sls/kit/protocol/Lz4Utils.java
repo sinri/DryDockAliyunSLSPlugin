@@ -9,6 +9,8 @@ import javax.annotation.Nullable;
 
 /**
  * LZ4压缩工具
+ *
+ * @since 1.0
  */
 public final class Lz4Utils {
     private static final LZ4Factory factory = LZ4Factory.fastestInstance();

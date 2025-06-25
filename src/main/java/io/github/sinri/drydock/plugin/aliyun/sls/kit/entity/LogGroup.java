@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @since 1.0
  * @see <a
  *         href="https://help.aliyun.com/zh/sls/developer-reference/api-sls-2020-12-30-struct-loggroup?spm=a2c4g.11186623.0.0.1dde4941qHi34T">LogGroup实体格式定义</a>
  */

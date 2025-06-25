@@ -3,19 +3,18 @@ package io.github.sinri.drydock.plugin.aliyun.sls.kit.protocol;
 import com.google.protobuf.DescriptorProtos;
 import com.google.protobuf.Descriptors;
 
+/**
+ * Aliyun SLS Protobuf Definitions
+ *
+ * @since 1.0
+ */
 public final class LogEntityDescriptors {
-    private static final LogEntityDescriptors instance=new LogEntityDescriptors();
-
-    public static LogEntityDescriptors getInstance() {
-        return instance;
-    }
-
+    private static final LogEntityDescriptors instance = new LogEntityDescriptors();
     private final Descriptors.Descriptor logDescriptor;
     private final Descriptors.Descriptor contentDescriptor;
     private final Descriptors.Descriptor logTagDescriptor;
     private final Descriptors.Descriptor logGroupDescriptor;
     private final Descriptors.Descriptor logGroupListDescriptor;
-
     private LogEntityDescriptors() {
         try {
             DescriptorProtos.DescriptorProto contentDescriptorProto = createContentDescriptorProto();
@@ -45,6 +44,10 @@ public final class LogEntityDescriptors {
         } catch (Descriptors.DescriptorValidationException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static LogEntityDescriptors getInstance() {
+        return instance;
     }
 
     /**

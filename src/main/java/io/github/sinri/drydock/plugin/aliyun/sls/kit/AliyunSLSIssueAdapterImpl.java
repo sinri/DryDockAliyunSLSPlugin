@@ -17,6 +17,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static io.github.sinri.keel.facade.KeelInstance.Keel;
 
+/**
+ * @since 1.0
+ */
 public class AliyunSLSIssueAdapterImpl extends AliyunSLSIssueAdapter {
     private final String source;
     private final AliyunSlsConfigElement aliyunSlsConfig;

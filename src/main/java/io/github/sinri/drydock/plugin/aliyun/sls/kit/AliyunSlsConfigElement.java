@@ -6,6 +6,9 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @since 1.0
+ */
 public class AliyunSlsConfigElement extends KeelConfigElement {
 
     public AliyunSlsConfigElement(@Nonnull KeelConfigElement another) {
